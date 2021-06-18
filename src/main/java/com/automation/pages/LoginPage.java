@@ -1,8 +1,10 @@
-package pages;
+package com.automation.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+
+import com.automation.base.BasePage;
 
 public class LoginPage extends BasePage {
 
