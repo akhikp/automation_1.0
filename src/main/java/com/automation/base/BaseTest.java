@@ -8,62 +8,58 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.automation.utils.WaitTimeUtils;
 
-public class BasePage {
-	static WebDriver driver;
+public class BaseTest {
+	protected static WebDriver driver;
 	public WebDriverWait wait;
 	static Properties prop;
 
 	// Constructor
-	public BasePage(WebDriver driver){
+	public BaseTest() {
 
 		prop = new Properties();
 		FileInputStream fip;
 		try {
 			fip = new FileInputStream("src\\main\\java\\com\\automation\\config\\config.properties");
 			prop.load(fip);
-			
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
-		this.driver = driver;
-		wait = new WebDriverWait(driver, 5);
+
 	}
 
-	
-	
-	public static void initSetUp(){
+	public static void initialization() {
 		String browserType = prop.getProperty("browser");
-	switch (browserType) {
-	case "chrome":
-	case "CHROME":
-		System.getProperty("webdriver.chrome.driver", "C:\\Users\\sarpoova\\Downloads\\softwares\\chromedriver_win32\\chromedriver.exe");
-		driver = new ChromeDriver();
-		break;
+		if (browserType.equalsIgnoreCase("chrome")) 
+		{
+			System.setProperty("webdriver.chrome.driver",
+					"C:\\Users\\sarpoova\\Downloads\\softwares\\chromedriver_win32\\chromedriver.exe");
+			driver = new ChromeDriver();
+		}
 
-	default:
-		break;
+		driver.manage().window().maximize();
+		driver.manage().deleteAllCookies();
+		driver.manage().timeouts().pageLoadTimeout(WaitTimeUtils.LONG_WAIT, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(WaitTimeUtils.LONG_WAIT, TimeUnit.SECONDS);
+		driver.get(prop.getProperty("url"));
+
 	}
-	
-	driver.manage().window().maximize();
-	driver.manage().deleteAllCookies();
-	driver.manage().timeouts().pageLoadTimeout(WaitTimeUtils.LONG_WAIT, TimeUnit.SECONDS);
-	driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-	driver.get(prop.getProperty("url"));
-	
+
+	public void scrolltoview(WebElement ele) {
+		((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true)", ele);
 	}
-	
-	
+
 	// Click Method
 	public void click(By elementLocation) {
 		waitVisibility(elementLocation);

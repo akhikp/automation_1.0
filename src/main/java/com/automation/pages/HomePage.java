@@ -1,35 +1,17 @@
 package com.automation.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import com.automation.base.BasePage;
+import com.automation.base.BaseTest;
 
-public class HomePage extends BasePage {
+public class HomePage extends BaseTest {
 
-    /**Constructor*/
-    public HomePage(WebDriver driver) {
-        super(driver);
-    }
 
-    /**Variables*/
-    String baseURL = "http://www.n11.com/";
 
-    /**Web Elements*/
-    By signInButtonClass = By.className("btnSignIn");
-    By modal = By.xpath("//*[@id=\"userKvkkModal\"]/div/div[2]/span");
-
-    /**Page Methods*/
-    public HomePage goToN11() {
-        driver.get(baseURL);
-        if(driver.findElement(modal).isDisplayed()) {
-            click(modal);
-        }
-        return this;
-    }
-
-    public LoginPage goToLoginPage() {
-        click(signInButtonClass);
-        return new LoginPage(driver);
-    }
 }
