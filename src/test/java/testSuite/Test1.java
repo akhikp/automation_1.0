@@ -2,6 +2,9 @@ package testSuite;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
+
+import com.automation.utils.FileUtils;
+
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
@@ -16,11 +19,19 @@ import org.testng.annotations.AfterSuite;
 
 public class Test1 {	
 	
-	@Test(dataProvider = "dp")
-	public void f(Integer n, String s) {
+	@DataProvider
+	public Object[][] getTestData(){
+		Object[][] data = FileUtils.getTestData("TestData");
+		return data;
+	}
+	
+	
+	@Test(priority=0, dataProvider="getTestData")
+	public void test(Integer n, String s) {
+		System.out.println(n+ ": " +s);
 	}
 
-	@BeforeMethod
+	@BeforeMethod 
 	public void beforeMethod() {
 	}
 

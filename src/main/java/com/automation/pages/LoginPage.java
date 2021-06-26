@@ -1,20 +1,17 @@
 package com.automation.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-
 import com.automation.base.BaseTest;
 
 public class LoginPage extends BaseTest {
 
 	@FindBy(id = "newsletter-input")
-	private WebElement ele;
+	WebElement ele;
 
 	@FindBy(id = "email_create")
 	WebElement email;
@@ -23,6 +20,7 @@ public class LoginPage extends BaseTest {
 	WebElement submitbtn;
 
 	@FindBy(xpath = "//*[@id='noSlide']/h1")
+	@CacheLookup
 	WebElement sectionHeaderLabel;
 
 	// init
