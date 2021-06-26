@@ -12,15 +12,19 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.automation.utils.WaitTimeUtils;
+import com.automation.utils.WebDriverListner;
 
 public class BaseTest {
 	protected static WebDriver driver;
 	public WebDriverWait wait;
 	static Properties prop;
+	static EventFiringWebDriver event_driver;
+	static WebDriverListner eventListener;
 
 	// Constructor
 	public BaseTest() {
@@ -41,12 +45,16 @@ public class BaseTest {
 
 	public static void initialization() {
 		String browserType = prop.getProperty("browser");
-		if (browserType.equalsIgnoreCase("chrome")) 
-		{
+		if (browserType.equalsIgnoreCase("chrome")) {
 			System.setProperty("webdriver.chrome.driver",
 					"C:\\Users\\sarpoova\\Downloads\\softwares\\chromedriver_win32\\chromedriver.exe");
 			driver = new ChromeDriver();
 		}
+
+		event_driver = new EventFiringWebDriver(driver);
+		eventListener = new WebDriverListner();
+		event_driver.register(eventListener);
+		driver = event_driver;
 
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();

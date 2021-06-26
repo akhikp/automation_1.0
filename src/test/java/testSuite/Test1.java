@@ -27,7 +27,13 @@ public class Test1 {
 	
 	
 	@Test(priority=0, dataProvider="getTestData")
-	public void test(Integer n, String s) {
+	public void test(String n, String s) {
+		System.out.println(n+ ": " +s);
+	}
+	
+	
+	@Test(priority=0, dataProvider="dp")
+	public void test2(Object n, Object s) {
 		System.out.println(n+ ": " +s);
 	}
 
