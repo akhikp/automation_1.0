@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite">
-  <test name="Test">
-    <classes>
-      <class name="testSuite.Testcase2"/>
-      <class name="testSuite.Test1"/>
-      <class name="testSuite.Testcase1"/>
-    </classes>
-  </test> <!-- Test -->
+
+	<listeners>
+		<listener
+			class-name="com.automation.listners.ExtentReportListener" />
+	</listeners>
+
+	<test name="Test">
+		<classes>
+			<class name="testSuite.Testcase2" />
+			<class name="testSuite.Test1" />
+			<class name="testSuite.Testcase1" />
+		</classes>
+	</test> <!-- Test -->
 </suite> <!-- Suite -->

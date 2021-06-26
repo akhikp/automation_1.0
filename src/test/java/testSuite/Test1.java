@@ -1,9 +1,11 @@
 package testSuite;
 
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.Test;
 
 import com.automation.utils.FileUtils;
+import com.automation.utils.ReExecuteFailedTC;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -26,15 +28,16 @@ public class Test1 {
 	}
 	
 	
-	@Test(priority=0, dataProvider="getTestData")
+	@Test(priority=0, dataProvider="getTestData", retryAnalyzer = ReExecuteFailedTC.class)
 	public void test(String n, String s) {
 		System.out.println(n+ ": " +s);
 	}
 	
 	
-	@Test(priority=0, dataProvider="dp")
+	@Test(priority=0, dataProvider="dp", retryAnalyzer = ReExecuteFailedTC.class)
 	public void test2(Object n, Object s) {
 		System.out.println(n+ ": " +s);
+		Assert.assertFalse(true,"FAILED");
 	}
 
 	@BeforeMethod 
